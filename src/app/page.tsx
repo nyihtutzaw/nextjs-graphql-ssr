@@ -7,10 +7,10 @@ import { GetCountriesResponse } from "./types";
 
 
 export default async function Partner({ searchParams }: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}):Promise<any> {
 
-  const { search = "" } = searchParams;
+  const { search = "" } = await searchParams;
 
   const { data } = await getClient().query<GetCountriesResponse>({
     query: GET_COUNTRIES_QUERY,
@@ -24,4 +24,5 @@ export default async function Partner({ searchParams }: {
       <Home data={data} />
     </main>
   );
+  
 }
